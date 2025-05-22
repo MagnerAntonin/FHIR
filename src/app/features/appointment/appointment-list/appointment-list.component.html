@@ -1,1 +1,9 @@
-<p>appointment-list works!</p>
+<h1>Liste des rendez-vous</h1>
+<div *ngIf="loading">Chargement...</div>
+
+<ul *ngIf="!loading">
+  <li *ngFor="let appt of appointments">
+    <strong>{{ appt.status }}</strong> :
+    {{ appt.start }} → {{ appt.end }}
+  </li>
+</ul>
