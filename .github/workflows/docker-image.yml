@@ -26,8 +26,10 @@ jobs:
 
     - name: Build Docker image
       run: |
-        docker build -t ghcr.io/${{ github.repository_owner }}/my-image:latest .
+        IMAGE_NAME="ghcr.io/${{ github.repository_owner,, }}/my-image:latest"
+        docker build -t $IMAGE_NAME .
 
     - name: Push Docker image
       run: |
-        docker push ghcr.io/${{ github.repository_owner }}/my-image:latest
+        IMAGE_NAME="ghcr.io/${{ github.repository_owner,, }}/my-image:latest"
+        docker push $IMAGE_NAME
