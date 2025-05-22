@@ -1,4 +1,4 @@
-name: Build Angular Docker Image CI
+name: Build Angular Docker Image
 
 on:
   push:
@@ -11,15 +11,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: 🔄 Checkout du code
+    - name: 🔄 Checkout du dépôt
       uses: actions/checkout@v4
 
-    - name: 📁 Debug – Lister les fichiers
-      run: ls -la $GITHUB_WORKSPACE
+    - name: 🧪 Debug – Liste des fichiers
+      run: |
+        echo "Répertoire de travail: $GITHUB_WORKSPACE"
+        ls -la $GITHUB_WORKSPACE
+        echo "Arborescence complète :"
+        sudo apt-get update && sudo apt-get install -y tree
+        tree $GITHUB_WORKSPACE
 
-    - name: 🛠️ Build de l'image Docker (chemin absolu)
+    - name: 🛠️ Build image Docker (chemin absolu)
       run: |
         docker build \
-          -f $GITHUB_WORKSPACE/Dockerfile \
+          -f "$GITHUB_WORKSPACE/Dockerfile" \
           -t my-angular-app:latest \
-          $GITHUB_WORKSPACE
+          "$GITHUB_WORKSPACE"
