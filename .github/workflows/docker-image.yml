@@ -1,9 +1,8 @@
-name: Build and Push to GitHub Container Registry
+name: Build and Push Angular Docker Image to GHCR
 
 on:
   push:
-    branches:
-      - master
+    branches: [ "master" ]
 
 jobs:
   build-and-push:
@@ -14,7 +13,7 @@ jobs:
       contents: read
 
     steps:
-    - name: Checkout repository
+    - name: Checkout code
       uses: actions/checkout@v4
 
     - name: Log in to GitHub Container Registry
@@ -27,8 +26,9 @@ jobs:
     - name: Build Docker image
       run: |
         REPO_OWNER_LC=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
-        docker build -t ghcr.io/$REPO_OWNER_LC/my-image:latest .
+        docker build -t ghcr.io/$REPO_OWNER_LC/angular-app:latest .
 
     - name: Push Docker image
       run: |
-        REPO_OWNER_LC=$(echo "${{ github.repository_owner }}" | t_
+        REPO_OWNER_LC=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
+        docker push ghcr.io/$REPO_OWNER_LC/angular-app:latest
