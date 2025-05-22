@@ -32,4 +32,15 @@ export class FhirService {
 
     return this.http.get(`${this.apiUrl}/Patient` , { params: httpParams });
   }
+
+  getPractitioners(params?: any): Observable<any> {
+    let httpParams = new HttpParams();
+    if (params) {
+      Object.keys(params).forEach(key => {
+        httpParams = httpParams.set(key, params[key]);
+      });
+    }
+
+    return this.http.get(`${this.apiUrl}/Practitioner`, { params: httpParams });
+  }
 }

@@ -12,6 +12,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import {CommonModule} from '@angular/common';
 import { Patient} from '../../../services/patient.model';
+import {Practitioner} from '../../../services/practitioner.model';
 
 @Component({
   selector: 'app-appointment-form',
@@ -39,10 +40,7 @@ export class AppointmentFormComponent implements OnInit {
 
   patients: any[] = [];
 
-  doctors = [
-    { id: '1', name: 'Dr. House' },
-    { id: '2', name: 'Dr. Strange' }
-  ];
+  practitioners: any[] = [];
 
   rooms = [
     { id: '1', name: 'Salle 101' },
@@ -67,13 +65,16 @@ export class AppointmentFormComponent implements OnInit {
         console.log(this.patients);
       }
     });
-  }
-
-  getPatientName(patient: any) : string {
-    const name = patient?.name?.[0];
-    const firstName = name?.given?.join(' ') || '';
-    const lastName = name?.family || '';
-    return `${firstName} ${lastName}`.trim();
+    this.fhirService.getPractitioners().subscribe({
+      next: (data) => {
+        console.log('Réponse brute de /Practitioner :', data);
+        this.practitioners = (data?.entry || []).map((entry: any) => {
+          console.log('Resource:', entry.resource);
+          return new Practitioner(entry.resource);
+        });
+        console.log(this.patients);
+      }
+    });
   }
 
   onSubmit() {
