@@ -1,0 +1,28 @@
+.home {
+  text-align: center;
+  margin-top: 60px;
+  font-family: Arial, sans-serif;
+}
+
+.home h1 {
+  font-size: 2rem;
+  margin-bottom: 30px;
+  color: #333;
+}
+
+.home a {
+  display: block; /* met les liens à la ligne */
+  width: fit-content;
+  margin: 10px auto;
+  padding: 12px 24px;
+  background-color: #1976d2;
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+}
+
+.home a:hover {
+  background-color: #1565c0;
+}
+
