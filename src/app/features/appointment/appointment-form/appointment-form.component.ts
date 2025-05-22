@@ -57,20 +57,20 @@ export class AppointmentFormComponent implements OnInit {
       startDateTime: [''],
       endDateTime: ['']
     });
-    this.fhirService.getPatients().subscribe({
-      next: (data) => {
-        this.patients = (data?.entry || []).map((entry: any) => {
-          return new Patient(entry.resource);
-        });
-        console.log(this.patients);
-      }
-    });
     this.fhirService.getPractitioners().subscribe({
       next: (data) => {
         console.log('Réponse brute de /Practitioner :', data);
         this.practitioners = (data?.entry || []).map((entry: any) => {
           console.log('Resource:', entry.resource);
           return new Practitioner(entry.resource);
+        });
+        console.log(this.practitioners);
+      }
+    });
+    this.fhirService.getPatients().subscribe({
+      next: (data) => {
+        this.patients = (data?.entry || []).map((entry: any) => {
+          return new Patient(entry.resource);
         });
         console.log(this.patients);
       }
