@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import {MatCard, MatCardContent, MatCardTitle} from '@angular/material/card';
+import {FhirService} from '../../../services/fhir.service';
 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -10,6 +11,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import {CommonModule} from '@angular/common';
+import { Patient} from '../../../services/patient.model';
 
 @Component({
   selector: 'app-appointment-form',
@@ -31,13 +33,11 @@ import {CommonModule} from '@angular/common';
   templateUrl: './appointment-form.component.html',
   styleUrl: './appointment-form.component.scss'
 })
+
 export class AppointmentFormComponent implements OnInit {
   appointmentForm! : FormGroup
 
-  patients = [
-    { id: '1', name: 'Alice Dupont' },
-    { id: '2', name: 'Bob Martin' }
-  ];
+  patients: any[] = [];
 
   doctors = [
     { id: '1', name: 'Dr. House' },
@@ -49,7 +49,7 @@ export class AppointmentFormComponent implements OnInit {
     { id: '2', name: 'Salle 102' }
   ];
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private fhirService: FhirService) {}
 
   ngOnInit(): void {
     this.appointmentForm = this.fb.group({
@@ -59,6 +59,21 @@ export class AppointmentFormComponent implements OnInit {
       startDateTime: [''],
       endDateTime: ['']
     });
+    this.fhirService.getPatients().subscribe({
+      next: (data) => {
+        this.patients = (data?.entry || []).map((entry: any) => {
+          return new Patient(entry.resource);
+        });
+        console.log(this.patients);
+      }
+    });
+  }
+
+  getPatientName(patient: any) : string {
+    const name = patient?.name?.[0];
+    const firstName = name?.given?.join(' ') || '';
+    const lastName = name?.family || '';
+    return `${firstName} ${lastName}`.trim();
   }
 
   onSubmit() {

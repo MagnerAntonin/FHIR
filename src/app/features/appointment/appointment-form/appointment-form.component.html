@@ -6,7 +6,7 @@
       <mat-form-field appearance="outline" class="selector">
         <mat-label>Patient</mat-label>
         <mat-select formControlName="patient">
-          <mat-option *ngFor="let p of patients" [value]="p.id">{{ p.name }}</mat-option>
+          <mat-option *ngFor="let p of patients" [value]="p.id">{{ p.fullName }}</mat-option>
         </mat-select>
       </mat-form-field>
 
