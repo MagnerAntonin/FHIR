@@ -14,6 +14,7 @@
   <form [formGroup]="appointmentForm" (ngSubmit)="onSubmit()" class="form">
     <mat-card>
       <mat-card-title>Saisir un nouveau rendez-vous</mat-card-title>
+      <div class="spacer"></div>
       <mat-card-content>
 
         <mat-form-field appearance="outline" class="selector">
@@ -37,19 +38,37 @@
           </mat-select>
         </mat-form-field>
 
-        <mat-form-field appearance="outline" class="selector">
-          <mat-label>Date et heure de début</mat-label>
-          <input matInput [matDatepicker]="startPicker" formControlName="startDateTime">
-          <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
-          <mat-datepicker #startPicker></mat-datepicker>
-        </mat-form-field>
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="selector half">
+            <mat-label>Date de début</mat-label>
+            <input matInput [matDatepicker]="startPicker" formControlName="startDateTime">
+            <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+            <mat-datepicker #startPicker></mat-datepicker>
+          </mat-form-field>
 
-        <mat-form-field appearance="outline" class="selector">
-          <mat-label>Date et heure de fin</mat-label>
-          <input matInput [matDatepicker]="endPicker" formControlName="endDateTime">
-          <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
-          <mat-datepicker #endPicker></mat-datepicker>
-        </mat-form-field>
+          <mat-form-field appearance="outline" class="selector half">
+            <mat-label>Heure de début</mat-label>
+            <input matInput [matTimepicker]="startTimePicker" formControlName="startTime">
+            <mat-timepicker-toggle matSuffix [for]="startTimePicker"></mat-timepicker-toggle>
+            <mat-timepicker #startTimePicker></mat-timepicker>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="selector half">
+            <mat-label>Date de fin</mat-label>
+            <input matInput [matDatepicker]="endPicker" formControlName="endDateTime">
+            <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+            <mat-datepicker #endPicker></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="selector half">
+            <mat-label>Heure de fin</mat-label>
+            <input matInput [matTimepicker]="endTimePicker" formControlName="endTime">
+            <mat-timepicker-toggle matSuffix [for]="endTimePicker"></mat-timepicker-toggle>
+            <mat-timepicker #endTimePicker></mat-timepicker>
+          </mat-form-field>
+        </div>
 
       </mat-card-content>
       <mat-card-actions align="end">
