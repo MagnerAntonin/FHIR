@@ -59,9 +59,7 @@ export class AppointmentFormComponent implements OnInit {
     });
     this.fhirService.getPractitioners().subscribe({
       next: (data) => {
-        console.log('Réponse brute de /Practitioner :', data);
         this.practitioners = (data?.entry || []).map((entry: any) => {
-          console.log('Resource:', entry.resource);
           return new Practitioner(entry.resource);
         });
         console.log(this.practitioners);

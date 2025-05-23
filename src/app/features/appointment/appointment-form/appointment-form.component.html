@@ -13,7 +13,7 @@
       <mat-form-field appearance="outline" class="selector">
         <mat-label>Médecin</mat-label>
         <mat-select formControlName="doctor">
-          <mat-option *ngFor="let d of practitioners" [value]="d.id">{{ d.name }}</mat-option>
+          <mat-option *ngFor="let d of practitioners" [value]="d.id">Dr. {{ d.fullName }}</mat-option>
         </mat-select>
       </mat-form-field>
 

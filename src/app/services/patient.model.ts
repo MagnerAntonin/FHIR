@@ -4,7 +4,7 @@ export class Patient {
   lastName: string;
 
   constructor(data: any) {
-    this.id = data.id;
+    this.id = data.id || '';
 
     const name = data.name?.[0];
     this.firstName = name?.given?.join(' ') || '';
@@ -14,4 +14,6 @@ export class Patient {
   get fullName(): string {
     return `${this.firstName} ${this.lastName}`.trim();
   }
+
+
 }
