@@ -1,18 +1,19 @@
 <header class="app-header">
   <div class="container">
     <img src="assets/rendez-vous.png" alt="Calendrier" class="logo" />
-    <h1>Cabinet de Secrétariat</h1>
+    <h1>Secrétariat</h1>
     <nav class="nav-links">
       <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Accueil</a>
       <a routerLink="/list" routerLinkActive="active">Rendez-vous</a>
       <a routerLink="/form" routerLinkActive="active">Nouveau</a>
+      <a routerLink="/about" routerLinkActive="active">A propos</a>
     </nav>
   </div>
 </header>
 
 <main class="appointments-container">
   <div class="container">
-    <h2>Liste des rendez-vous</h2>
+    <h1>Liste des rendez-vous</h1>
 
     <div *ngIf="loading" class="loading">Chargement...</div>
 
