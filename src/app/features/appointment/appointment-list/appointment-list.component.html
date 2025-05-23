@@ -1,9 +1,34 @@
-<h1>Liste des rendez-vous</h1>
-<div *ngIf="loading">Chargement...</div>
+<header class="app-header">
+  <div class="container">
+    <img src="assets/rendez-vous.png" alt="Calendrier" class="logo" />
+    <h2>Cabinet de Secrétariat</h2>
+    <nav class="nav-links">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Accueil</a>
+      <a routerLink="/list" routerLinkActive="active">Rendez-vous</a>
+      <a routerLink="/form" routerLinkActive="active">Nouveau</a>
+    </nav>
+  </div>
+</header>
 
-<ul *ngIf="!loading">
-  <li *ngFor="let appt of appointments">
-    <strong>{{ appt.status }}</strong> :
-    {{ appt.start }} → {{ appt.end }}
-  </li>
-</ul>
+<main class="appointments-container">
+  <div class="container">
+    <h2>Liste des rendez-vous</h2>
+
+    <div *ngIf="loading" class="loading">Chargement...</div>
+
+    <ul *ngIf="!loading" class="appointments-list">
+      <li *ngFor="let appt of appointments">
+        <div class="appt-card">
+          <span class="status">{{ appt.status }}</span>
+          <span class="time">{{ appt.start }} → {{ appt.end }}</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+</main>
+
+<footer class="app-footer">
+  <div class="container">
+    <p>&copy; 2025 Cabinet de Secrétariat. Tous droits réservés.</p>
+  </div>
+</footer>

@@ -8,6 +8,7 @@ import { RouterModule} from '@angular/router';
   standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './appointment-list.component.html',
+  styleUrl: './appointment-list.component.scss'
 })
 export class AppointmentListComponent implements OnInit {
   appointments: any[] = [];

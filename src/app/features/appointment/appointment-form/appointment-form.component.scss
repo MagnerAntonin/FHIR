@@ -1,13 +1,76 @@
-.form {
-  max-width: 600px;
-  margin: 40px auto;
+:host {
+    display: block;
+    font-family: "Segoe UI", Roboto, sans-serif;
+    color: #333;
+    background-color: #f9f9f9;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
-.selector {
-  width: 100%;
-  margin-bottom: 16px;
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
 }
 
-mat-card {
-  padding: 24px;
+.app-header {
+    background-color: #1976d2;
+    color: white;
+    padding: 5px 0;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+
+    .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .logo {
+        width: 100px;
+        height: 100px; // un peu plus petit
+    }
+
+    .nav-links a {
+        margin-left: 25px;
+        color: white;
+        text-decoration: none;
+        font-size: 22px;
+        font-weight: 500;
+        transition: opacity 0.3s;
+
+        &.active,
+        &:hover {
+            opacity: 0.8;
+        }
+    }
+}
+
+.appointments-container {
+    flex: 1;
+    padding: 60px 20px;
+
+    .form {
+        max-width: 600px;
+        margin: 40px auto;
+    }
+
+    .selector {
+        width: 100%;
+        margin-bottom: 16px;
+    }
+
+    mat-card {
+        padding: 24px;
+    }
+}
+
+.app-footer {
+    background-color: #eeeeee;
+    text-align: center;
+    justify-content: center;
+    padding: 16px 0;
+    font-size: 0.9rem;
+    color: #666;
+    border-top: 1px solid #ddd;
 }
