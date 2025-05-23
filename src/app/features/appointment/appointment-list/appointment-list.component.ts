@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FhirService } from '../../../services/fhir.service';
+import { RouterModule} from '@angular/router';
 
 @Component({
   selector: 'app-appointment-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './appointment-list.component.html',
 })
 export class AppointmentListComponent implements OnInit {

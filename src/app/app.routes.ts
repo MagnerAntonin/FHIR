@@ -1,22 +1,15 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import { AboutComponent } from './about/about.component';
-import { NotFoundPageComponent } from './not-found-page/not-found-page.component';
+import { NotFoundComponent } from './not-found/not-found.component';
+import { AppointmentDetailsComponent } from './features/appointment/appointment-details/appointment-details.component';
+import { AppointmentFormComponent } from './features/appointment/appointment-form/appointment-form.component';
+import { AppointmentListComponent } from './features/appointment/appointment-list/appointment-list.component';
 
 export const routes: Routes = [
-    {
-        path: '',
-        component: HomeComponent,
-        title: 'Home'
-    },
-    {
-        path: 'about',
-        component: AboutComponent,
-        title: 'À propos'
-    },
-    {
-        path: '**',
-        component: NotFoundPageComponent,
-        title: 'Page non trouvée'
-    }
+    { path: '', component: HomeComponent, title: 'Home' },
+    { path: 'details', component: AppointmentDetailsComponent, title: 'Détails' },
+    { path: 'form', component: AppointmentFormComponent, title: 'Formulaire' },
+    { path: 'list', component: AppointmentListComponent, title: 'Liste' },
+    { path: '**', component: NotFoundComponent, title: 'Page not found' }
 ];
+
