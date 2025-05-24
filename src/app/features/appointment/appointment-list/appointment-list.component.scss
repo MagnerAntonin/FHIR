@@ -26,13 +26,13 @@
     align-items: center;
 
     .logoCalendar {
-        width: 100px;
-        height: 100px;
+      width: 100px;
+      height: 100px;
     }
 
     .logoAccount {
-        width: 60px;
-        height: 55px;
+      width: 60px;
+      height: 55px;
     }
 
     h2 {
@@ -76,7 +76,7 @@
     color: #999;
   }
 
-  .appointments-list {
+  /*.appointments-list {
     list-style: none;
     padding: 0;
     display: flex;
@@ -101,6 +101,125 @@
       .time {
         font-size: 0.95rem;
         color: #555;
+      }
+    }
+  }*/
+
+  /*.appointments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 0;
+
+    .appt-card {
+      background: #fff;
+      padding: 20px;
+      border-left: 4px solid #1976d2;
+      border-radius: 6px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+
+      .appt-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+
+      .appt-status {
+        font-weight: bold;
+        color: #1976d2;
+
+        &.cancelled {
+          color: #e53935;
+        }
+
+        &.fulfilled {
+          color: #43a047;
+        }
+      }
+
+      .appt-time {
+        color: #555;
+        font-size: 0.95rem;
+      }
+
+      .appt-body {
+        p {
+          margin: 4px 0;
+        }
+      }
+
+      .appt-desc {
+        font-style: italic;
+        color: #444;
+      }
+    }
+  }*/
+
+  .appointments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 0;
+  }
+
+  .appt-card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: background-color 0.2s;
+
+    &:hover {
+      background-color: #f8f9fa;
+    }
+
+    .appt-cell strong{
+      font-size: 0.95rem;
+      margin-right: 6px;
+
+      &.description {
+        grid-column: 1 / -1;
+        font-style: italic;
+        margin-top: 6px;
+      }
+
+      &.status {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+      }
+    }
+
+    .appt-status {
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      text-transform: capitalize;
+
+      &.booked {
+        background-color: #e3f2fd;
+        color: #1976d2;
+      }
+
+      &.cancelled {
+        background-color: #ffebee;
+        color: #c62828;
+      }
+
+      &.fulfilled {
+        background-color: #e8f5e9;
+        color: #388e3c;
+      }
+
+      &.proposed {
+        background-color: #fff8e1;
+        color: #ef6c00;
       }
     }
   }

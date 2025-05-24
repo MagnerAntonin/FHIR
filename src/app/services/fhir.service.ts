@@ -43,4 +43,9 @@ export class FhirService {
 
     return this.http.get(`${this.apiUrl}/Practitioner`, { params: httpParams });
   }
+
+  getResourceByReference(reference: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/${reference}`);
+  }
+
 }
