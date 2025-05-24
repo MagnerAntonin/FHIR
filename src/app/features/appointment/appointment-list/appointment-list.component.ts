@@ -103,6 +103,6 @@ export class AppointmentListComponent implements OnInit {
   }
 
   showDetails(appt: any) {
-  this.router.navigate(['/details', appt.id]);
-}
+    this.router.navigate(['/details', appt.id]);
+  }
 }

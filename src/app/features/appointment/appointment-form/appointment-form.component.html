@@ -43,7 +43,7 @@
         <div class="form-row">
           <mat-form-field appearance="outline" class="selector half">
             <mat-label>Date de début</mat-label>
-            <input matInput [matDatepicker]="startPicker" formControlName="startDateTime">
+            <input matInput [matDatepicker]="startPicker" formControlName="startDate">
             <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
             <mat-datepicker #startPicker></mat-datepicker>
           </mat-form-field>
@@ -59,7 +59,7 @@
         <div class="form-row">
           <mat-form-field appearance="outline" class="selector half">
             <mat-label>Date de fin</mat-label>
-            <input matInput [matDatepicker]="endPicker" formControlName="endDateTime">
+            <input matInput [matDatepicker]="endPicker" formControlName="endDate">
             <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
             <mat-datepicker #endPicker></mat-datepicker>
           </mat-form-field>
