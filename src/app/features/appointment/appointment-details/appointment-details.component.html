@@ -18,6 +18,7 @@
       <h2>👤 Patient</h2>
       <p><strong>Nom :</strong> {{ patient?.name[0]?.given[0] }}</p>
       <p><strong>Prénom :</strong> {{ patient?.name[0]?.family }}</p>
+      <p><strong>Adresse postale :</strong> {{ patient?.address[0]?.text }}</p>
       <p><strong>Téléphone :</strong> {{ patient?.telecom[0]?.value }}</p>
       <p><strong>Email :</strong> {{ patient?.telecom[1]?.value }}</p>
       <p><strong>Genre :</strong> {{ patient?.gender }}</p>
