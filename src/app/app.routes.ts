@@ -8,9 +8,9 @@ import { AboutComponent } from './about/about.component';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent, title: 'Accueil' },
-    { path: 'details', component: AppointmentDetailsComponent, title: 'Détails RDV' },
-    { path: 'form', component: AppointmentFormComponent, title: 'Formulaire de RDV' },
-    { path: 'list', component: AppointmentListComponent, title: 'Liste' },
+    { path: 'details/:id', component: AppointmentDetailsComponent, title: 'Détails RDV' },
+    { path: 'form', component: AppointmentFormComponent, title: 'Nouveau RDV' },
+    { path: 'list', component: AppointmentListComponent, title: 'Liste RDV' },
     { path: 'about', component: AboutComponent, title: 'A Propos'},
     { path: '**', component: NotFoundComponent, title: 'Page non trouvé' }
 ];

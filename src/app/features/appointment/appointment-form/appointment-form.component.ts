@@ -69,6 +69,7 @@ export class AppointmentFormComponent implements OnInit {
         console.log(this.practitioners);
       }
     });
+    
     this.fhirService.getPatients().subscribe({
       next: (data) => {
         this.patients = (data?.entry || []).map((entry: any) => {

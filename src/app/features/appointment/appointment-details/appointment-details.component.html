@@ -1,1 +1,48 @@
-<p>appointment-details works!</p>
+<header class="app-header">
+  <div class="container">
+    <img src="assets/rendez-vous.png" alt="Calendrier" class="logoCalendar" />
+    <h1>Secrétariat</h1>
+    <nav class="nav-links">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Accueil</a>
+      <a routerLink="/list" routerLinkActive="active">Rendez-vous</a>
+      <a routerLink="/form" routerLinkActive="active">Nouveau</a>
+      <a routerLink="/about" routerLinkActive="active">A propos</a>
+    </nav>
+    <img src="assets/user.png" alt="Account" class="logoAccount" />
+  </div>
+</header>
+
+<div class="page-container">
+  <div class="appointment-details">
+    <section class="info-block">
+      <h2>👤 Patient</h2>
+      <p><strong>Nom :</strong> {{ patient?.name[0]?.given[0] }}</p>
+      <p><strong>Prénom :</strong> {{ patient?.name[0]?.family }}</p>
+      <p><strong>Téléphone :</strong> {{ patient?.telecom[0]?.value }}</p>
+      <p><strong>Email :</strong> {{ patient?.telecom[1]?.value }}</p>
+      <p><strong>Genre :</strong> {{ patient?.gender }}</p>
+      <p><strong>Date de naissance :</strong> {{ patient?.birthDate }}</p>
+    </section>
+
+    <section class="info-block">
+      <h2>🩺 Praticien</h2>
+      <p><strong>Nom :</strong> {{ practitioner?.name[0]?.given[0] }}</p>
+      <p><strong>Prénom :</strong> {{ practitioner?.name[0]?.family }}</p>
+      <p><strong>Téléphone :</strong> {{ practitioner?.telecom[0]?.value }}</p>
+      <p><strong>Email :</strong> {{ practitioner?.telecom[1]?.value }}</p>
+    </section>
+
+    <section class="info-block">
+      <h2>🏥 Lieu</h2>
+      <p><strong>Nom :</strong> {{ location?.name }}</p>
+      <p><strong>Type :</strong> {{ location?.type[0]?.text }}</p>
+      <p><strong>Rattaché à :</strong> {{ location?.partOf?.display }}</p>
+    </section>
+  </div>
+</div>
+
+<footer class="app-footer">
+  <div class="container">
+    <p>&copy; 2025 Cabinet de Secrétariat. Tous droits réservés.</p>
+  </div>
+</footer>

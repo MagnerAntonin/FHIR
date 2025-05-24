@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FhirService } from '../../../services/fhir.service';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-appointment-list',
@@ -15,7 +16,7 @@ export class AppointmentListComponent implements OnInit {
   appointments: any[] = [];
   loading = true;
 
-  constructor(private fhirService: FhirService) { }
+  constructor(private fhirService: FhirService, private router: Router) { }
 
   /*ngOnInit(): void {
     this.fhirService.getAppointments().subscribe({
@@ -100,4 +101,8 @@ export class AppointmentListComponent implements OnInit {
       }
     });
   }
+
+  showDetails(appt: any) {
+  this.router.navigate(['/details', appt.id]);
+}
 }

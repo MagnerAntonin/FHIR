@@ -31,7 +31,7 @@
     <div *ngIf="!loading && appointments.length === 0" class="empty">Aucun rendez-vous à afficher.</div>
 
     <div *ngIf="!loading && appointments.length > 0" class="appointments-list">
-      <div *ngFor="let appt of appointments" class="appt-card-grid">
+      <div *ngFor="let appt of appointments" class="appt-card-grid" (click)="showDetails(appt)">
         <div class="appt-cell date">
           <strong>📅</strong> {{ appt.start | date:'EEEE dd MMMM yyyy' }}
         </div>
