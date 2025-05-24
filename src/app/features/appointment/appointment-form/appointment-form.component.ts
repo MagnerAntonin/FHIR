@@ -49,6 +49,7 @@ export class AppointmentFormComponent implements OnInit {
     { id: '1', name: 'Salle 101' },
     { id: '2', name: 'Salle 102' }
   ];
+  today: Date = new Date(); // Add
 
   constructor(private fb: FormBuilder, private fhirService: FhirService) { }
 
