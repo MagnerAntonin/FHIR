@@ -37,10 +37,10 @@
     <div *ngIf="!loading && appointments.length > 0" class="appointments-list">
       <div *ngFor="let appt of appointments" class="appt-card-grid">
         <div class="appt-cell date">
-          <strong>🕒</strong> {{ appt.start | date:'EEEE dd MMMM yyyy' }}
+          <strong>📅</strong> {{ appt.start | date:'EEEE dd MMMM yyyy' }}
         </div>
         <div class="appt-cell time">
-          <strong>📅</strong> {{ appt.start | date:'HH:mm' }} → {{ appt.end | date:'HH:mm' }}
+          <strong>🕒</strong> {{ appt.start | date:'HH:mm' }} ---> {{ appt.end | date:'HH:mm' }}
         </div>
         <div class="appt-cell patient">
           <strong>👤</strong> {{ appt.patient?.name || 'Inconnu' }}
@@ -60,7 +60,6 @@
 
   </div>
 </main>
-
 
 <footer class="app-footer">
   <div class="container">

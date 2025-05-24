@@ -173,14 +173,16 @@
     background: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
     transition: background-color 0.2s;
+    font-family: 15px;
 
     &:hover {
-      background-color: #f8f9fa;
+      background-color: #c9d4cc //#f8f9fa;
     }
 
-    .appt-cell strong{
+    .appt-cell strong {
       font-size: 0.95rem;
       margin-right: 6px;
+      font-family: 12px;
 
       &.description {
         grid-column: 1 / -1;
