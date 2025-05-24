@@ -35,6 +35,8 @@ export class AppointmentListComponent implements OnInit {
         const entries = data?.entry || [];
 
         const mappedAppointments = entries.map((entry: any) => entry.resource);
+        mappedAppointments.sort((a: any, b: any) => new Date(a.start).getTime() - new Date(b.start).getTime()); // Sort the list by order
+
         const enrichments = mappedAppointments.map(async (appt: any) => {
           const participants: any[] = appt.participant || [];
 
