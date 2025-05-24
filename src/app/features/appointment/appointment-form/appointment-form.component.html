@@ -75,6 +75,7 @@
       </mat-card-content>
       <mat-card-actions align="end">
         <button mat-raised-button color="primary" type="submit" [disabled]="appointmentForm.invalid">Valider</button>
+        <button mat-button color="warn" type="button" (click)="onCancel()">Annuler</button>
       </mat-card-actions>
     </mat-card>
   </form>

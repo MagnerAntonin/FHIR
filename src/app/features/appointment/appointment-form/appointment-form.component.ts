@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatCard, MatCardContent, MatCardTitle } from '@angular/material/card';
 import { FhirService } from '../../../services/fhir.service';
@@ -11,7 +12,6 @@ import { MatTimepickerModule } from '@angular/material/timepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { CommonModule } from '@angular/common';
 import { Patient } from '../../../services/patient.model';
 import { Practitioner } from '../../../services/practitioner.model';
 import { RouterModule } from '@angular/router';
@@ -90,6 +90,9 @@ export class AppointmentFormComponent implements OnInit {
     this.appointmentForm.reset(); // To reset the form
 
   }
-
   protected readonly onsubmit = onsubmit;
+
+  onCancel() {
+    this.appointmentForm.reset();
+  }
 }
