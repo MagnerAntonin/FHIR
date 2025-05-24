@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FhirService } from '../../../services/fhir.service';
 import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-appointment-list',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, FormsModule],
   templateUrl: './appointment-list.component.html',
   styleUrl: './appointment-list.component.scss'
 })
@@ -66,6 +67,7 @@ export class AppointmentListComponent implements OnInit {
 
         Promise.all(enrichments).then((results) => {
           this.appointments = results;
+          this.sortAppointments(); // Init sort
           this.loading = false;
         });
       },
@@ -73,6 +75,29 @@ export class AppointmentListComponent implements OnInit {
         console.error('Erreur lors de la récupération des RDVs :', err);
         this.loading = false;
       },
+    });
+  }
+
+  sortKey = 'startAsc';
+
+  sortAppointments() {
+    this.appointments.sort((a: any, b: any) => {
+      switch (this.sortKey) {
+        case 'startAsc':
+          return new Date(a.start).getTime() - new Date(b.start).getTime();
+        case 'startDesc':
+          return new Date(b.start).getTime() - new Date(a.start).getTime();
+        case 'patientAsc':
+          return (a.patient?.name || '').localeCompare(b.patient?.name || '');
+        case 'patientDesc':
+          return (b.patient?.name || '').localeCompare(a.patient?.name || '');
+        case 'practitionerAsc':
+          return (a.practitioner?.name || '').localeCompare(b.practitioner?.name || '');
+        case 'practitionerDesc':
+          return (b.practitioner?.name || '').localeCompare(a.practitioner?.name || '');
+        default:
+          return 0;
+      }
     });
   }
 }

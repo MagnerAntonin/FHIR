@@ -14,25 +14,21 @@
 
 <main class="appointments-container">
   <div class="container">
-    <h1>Liste des rendez-vous</h1>
+    <h1>Liste des Rendez-vous</h1>
+    <div class="sort-controls">
+      <label for="sort">Trier par :</label>
+      <select id="sort" [(ngModel)]="sortKey" (change)="sortAppointments()">
+        <option value="startAsc">Date croissante</option>
+        <option value="startDesc">Date décroissante</option>
+        <option value="patientAsc">Patient (A-Z)</option>
+        <option value="patientDesc">Patient (Z-A)</option>
+        <option value="practitionerAsc">Praticien (A-Z)</option>
+        <option value="practitionerDesc">Praticien (Z-A)</option>
+      </select>
+    </div>
 
     <div *ngIf="loading" class="loading">Chargement...</div>
-
     <div *ngIf="!loading && appointments.length === 0" class="empty">Aucun rendez-vous à afficher.</div>
-
-    <!--<ul *ngIf="!loading && appointments.length > 0" class="appointments-list">
-      <li *ngFor="let appt of appointments" class="appt-card">
-        <div class="appt-header">
-          <span class="appt-status" [ngClass]="appt.status">{{ appt.status | titlecase }}</span>
-          <span class="appt-time">{{ appt.start | date:'dd/MM/yyyy HH:mm' }} → {{ appt.end | date:'HH:mm' }}</span>
-        </div>
-        <div class="appt-body">
-          <p class="appt-desc">{{ appt.description || 'Sans description' }}</p>
-          <p><strong>Patient :</strong> {{ appt.patient?.name || 'Inconnu' }}</p>
-          <p><strong>Praticien :</strong> {{ appt.practitioner?.name || 'Inconnu' }}</p>
-        </div>
-      </li>
-    </ul>-->
 
     <div *ngIf="!loading && appointments.length > 0" class="appointments-list">
       <div *ngFor="let appt of appointments" class="appt-card-grid">
