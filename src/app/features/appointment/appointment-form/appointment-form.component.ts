@@ -100,7 +100,23 @@ export class AppointmentFormComponent implements OnInit {
         console.log(this.locations);
       }
     });
+
+    //Sélection automatique de la deuxièmes date
+    this.appointmentForm.get('startDate')?.valueChanges.subscribe(start => {
+      const endDateControl = this.appointmentForm.get('endDate');
+      if (!endDateControl?.value) {
+        endDateControl?.setValue(start);
+      }
+    });
+    this.appointmentForm.get('endDate')?.valueChanges.subscribe(end => {
+      const startDateControl = this.appointmentForm.get('startDate');
+      if (!startDateControl?.value) {
+        startDateControl?.setValue(end);
+      }
+    });
   }
+
+
 
   onSubmit() {
     if (this.appointmentForm.invalid) {

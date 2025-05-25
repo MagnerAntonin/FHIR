@@ -52,44 +52,79 @@
 }
 
 .appointments-container {
+  flex: 1;
+  padding: 60px 20px;
+  display: flex;
+  justify-content: center;
+
+  .form {
+    width: 100%;
+    max-width: 820px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    padding: 30px;
+  }
+
+  mat-card {
+    box-shadow: none;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 20px 24px;
+  }
+
+  mat-card-title {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #1976d2;
+    margin-bottom: 12px;
+  }
+
+  .spacer {
+    height: 20px;
+  }
+
+  .selector {
+    width: 100%;
+    margin-bottom: 18px;
+  }
+
+  .form-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 18px;
+  }
+
+  .selector.half {
     flex: 1;
-    padding: 60px 20px;
+    min-width: 220px;
+  }
 
-    .spacer {
-        height: 25px;
+  mat-form-field {
+    font-size: 16px;
+  }
+
+  mat-card-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 10px;
+
+    mat-card-actions button:hover {
+      filter: brightness(1.05);
+      transform: translateY(-1px);
+      transition: all 0.2s ease-in-out;
     }
 
-    .form {
-        max-width: 800px;
-        margin: 10px auto;
+    button {
+      font-size: 15px;
+      padding: 8px 22px;
+      border-radius: 6px;
     }
-
-    .selector {
-        width: 100%;
-        margin-bottom: 16px;
-    }
-
-    .form-row {
-        display: flex;
-        gap: 16px;
-        margin-bottom: 16px;
-    }
-
-    .selector.half {
-        flex: 1;
-    }
-
-    mat-card {
-        padding: 24px;
-    }
-
-    mat-card-actions {
-        display: flex;
-        justify-content: flex-end;
-        gap: 12px;
-    }
-
+  }
 }
+
 
 .app-footer {
     background-color: #eeeeee;
