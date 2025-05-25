@@ -1,5 +1,31 @@
-<div class="home">
-  <h1>Bienvenue sur la page d'accueil</h1>
-  <a routerLink="/list">Consulter les rendez-vous</a>
-  <a routerLink="/form">Saisir un rendez-vous</a>
-</div>
+<header class="app-header">
+    <div class="container">
+        <img src="assets/rendez-vous.png" alt="Calendrier" class="logoCalendar" />
+        <h1>Secrétariat</h1>
+        <nav class="nav-links">
+            <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Accueil</a>
+            <a routerLink="/list" routerLinkActive="active">Rendez-vous</a>
+            <a routerLink="/form" routerLinkActive="active">Nouveau</a>
+            <a routerLink="/about" routerLinkActive="active">A propos</a>
+        </nav>
+        <img src="assets/user.png" alt="Account" class="logoAccount" />
+    </div>
+</header>
+
+<main class="home-container">
+    <section class="home-hero">
+        <h1>Bienvenue</h1>
+        <img src="assets/accueil_secretariat.jpg" alt="Accueil Secrétariat" class="hero-image" />
+        <p>Gérez vos rendez-vous avec simplicité, rapidité et efficacité.</p>
+        <div class="home-actions">
+            <a routerLink="/list" class="btn-primary">Consulter les Rendez-vous</a>
+            <a routerLink="/form" class="btn-secondary">Saisir un rendez-vous</a>
+        </div>
+    </section>
+</main>
+
+<footer class="app-footer">
+    <div class="container">
+        <p>&copy; 2025 Cabinet de Secrétariat. Tous droits réservés.</p>
+    </div>
+</footer>

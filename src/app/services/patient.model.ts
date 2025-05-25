@@ -14,6 +14,4 @@ export class Patient {
   get fullName(): string {
     return `${this.firstName} ${this.lastName}`.trim();
   }
-
-
 }

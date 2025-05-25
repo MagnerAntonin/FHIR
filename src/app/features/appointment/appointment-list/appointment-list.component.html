@@ -1,9 +1,64 @@
-<h1>Liste des rendez-vous</h1>
-<div *ngIf="loading">Chargement...</div>
+<header class="app-header">
+  <div class="container">
+    <img src="assets/rendez-vous.png" alt="Calendrier" class="logoCalendar" />
+    <h1>Secrétariat</h1>
+    <nav class="nav-links">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Accueil</a>
+      <a routerLink="/list" routerLinkActive="active">Rendez-vous</a>
+      <a routerLink="/form" routerLinkActive="active">Nouveau</a>
+      <a routerLink="/about" routerLinkActive="active">A propos</a>
+    </nav>
+    <img src="assets/user.png" alt="Account" class="logoAccount" />
+  </div>
+</header>
 
-<ul *ngIf="!loading">
-  <li *ngFor="let appt of appointments">
-    <strong>{{ appt.status }}</strong> :
-    {{ appt.start }} → {{ appt.end }}
-  </li>
-</ul>
+<main class="appointments-container">
+  <div class="container">
+    <h1>Liste des Rendez-vous</h1>
+    <div class="sort-controls">
+      <label for="sort">Trier par :</label>
+      <select id="sort" [(ngModel)]="sortKey" (change)="sortAppointments()">
+        <option value="startAsc">Date croissante</option>
+        <option value="startDesc">Date décroissante</option>
+        <option value="patientAsc">Patient (A-Z)</option>
+        <option value="patientDesc">Patient (Z-A)</option>
+        <option value="practitionerAsc">Praticien (A-Z)</option>
+        <option value="practitionerDesc">Praticien (Z-A)</option>
+      </select>
+    </div>
+
+    <div *ngIf="loading" class="loading">Chargement...</div>
+    <div *ngIf="!loading && appointments.length === 0" class="empty">Aucun rendez-vous à afficher.</div>
+
+    <div *ngIf="!loading && appointments.length > 0" class="appointments-list">
+      <div *ngFor="let appt of appointments" class="appt-card-grid" (click)="showDetails(appt)">
+        <div class="appt-cell date">
+          <strong>📅</strong> {{ appt.start | date:'EEEE dd MMMM yyyy' }}
+        </div>
+        <div class="appt-cell time">
+          <strong>🕒</strong> {{ appt.start | date:'HH:mm' }} ---> {{ appt.end | date:'HH:mm' }}
+        </div>
+        <div class="appt-cell patient">
+          <strong>👤</strong> {{ appt.patient?.name || 'Inconnu' }}
+        </div>
+        <div class="appt-cell practitioner">
+          <strong>👨‍⚕️</strong> {{ appt.practitioner?.name || 'Inconnu' }}
+        </div>
+        <div class="appt-cell status">
+          <span class="appt-status" [ngClass]="appt.status">{{ appt.status | titlecase }}</span>
+        </div>
+        <div class="appt-cell description" *ngIf="appt.description">
+          <strong>📌</strong><em>{{ appt.description }}</em>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</main>
+
+<footer class="app-footer">
+  <div class="container">
+    <p>&copy; 2025 Cabinet de Secrétariat. Tous droits réservés.</p>
+  </div>
+</footer>

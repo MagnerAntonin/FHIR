@@ -1,0 +1,39 @@
+<header class="app-header">
+  <div class="container">
+    <img src="assets/rendez-vous.png" alt="Calendrier" class="logoCalendar" />
+    <h1>Secrétariat</h1>
+    <nav class="nav-links">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Accueil</a>
+      <a routerLink="/list" routerLinkActive="active">Rendez-vous</a>
+      <a routerLink="/form" routerLinkActive="active">Nouveau</a>
+      <a routerLink="/about" routerLinkActive="active">A propos</a>
+    </nav>
+    <img src="assets/user.png" alt="Account" class="logoAccount" />
+  </div>
+</header>
+
+<main class="home-container">
+  <div class="about-container">
+    <h1>Bienvenue sur notre application</h1>
+    <p>
+      Cette plateforme a été conçue avec par une équipe passionnée de développeurs Angular.
+      Elle vous permet de gérer vos rendez-vous simplement, rapidement et efficacement.
+    </p>
+
+    <div class="team-section">
+      <h2>Notre mission</h2>
+      <p>
+        Simplifier votre quotidien en proposant une interface fluide, moderne et intuitive.
+        Vos retours sont essentiels — n'hésitez pas à nous contacter !
+      </p>
+    </div>
+
+    <a routerLink="/" class="home-link">Retour à l'accueil</a>
+  </div>
+</main>
+
+<footer class="app-footer">
+  <div class="container">
+    <p>&copy; 2025 Cabinet de Secrétariat. Tous droits réservés.</p>
+  </div>
+</footer>

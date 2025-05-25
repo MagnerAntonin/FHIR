@@ -1,0 +1,179 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  font-family: "Segoe UI", Roboto, sans-serif;
+  color: #333;
+  background-color: #f9f9f9;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+
+  .sort-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+    font-size: 20px;
+  }
+
+  .sort-controls select {
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+  }
+
+}
+
+.app-header {
+  background-color: #1976d2;
+  color: white;
+  padding: 5px 0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .logoCalendar {
+      width: 100px;
+      height: 100px;
+    }
+
+    .logoAccount {
+      width: 60px;
+      height: 55px;
+    }
+
+    h2 {
+      margin: 0 20px;
+      font-size: 1.8rem;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+
+      a {
+        margin-left: 25px;
+        color: white;
+        text-decoration: none;
+        font-size: 22px;
+        font-weight: 500;
+        transition: opacity 0.3s;
+
+        &.active,
+        &:hover {
+          opacity: 0.8;
+        }
+      }
+    }
+  }
+}
+
+.appointments-container {
+  flex: 1;
+  padding: 60px 20px;
+
+  h1 {
+    font-size: 2.2rem;
+    margin-bottom: 30px;
+    color: black;
+  }
+
+  .loading {
+    font-size: 1.2rem;
+    color: #999;
+  }
+
+  .appointments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 0;
+  }
+
+  .appt-card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: background-color 0.2s;
+    font-family: 15px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #c9d4cc //#f8f9fa;
+    }
+
+    .appt-cell {
+      font-size: 20px;
+    }
+
+    .appt-cell strong {
+      font-size: 0.95rem;
+      margin-right: 6px;
+      font-family: 12px;
+
+      &.description {
+        grid-column: 1 / -1;
+        font-style: italic;
+        margin-top: 6px;
+      }
+
+      &.status {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+      }
+    }
+
+    .appt-status {
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      text-transform: capitalize;
+
+      &.booked {
+        background-color: #e3f2fd;
+        color: #1976d2;
+      }
+
+      &.cancelled {
+        background-color: #ffebee;
+        color: #c62828;
+      }
+
+      &.fulfilled {
+        background-color: #e8f5e9;
+        color: #388e3c;
+      }
+
+      &.proposed {
+        background-color: #fff8e1;
+        color: #ef6c00;
+      }
+    }
+  }
+}
+
+.app-footer {
+  background-color: #eeeeee;
+  text-align: center;
+  justify-content: center;
+  padding: 16px 0;
+  font-size: 0.9rem;
+  color: #666;
+  border-top: 1px solid #ddd;
+}
