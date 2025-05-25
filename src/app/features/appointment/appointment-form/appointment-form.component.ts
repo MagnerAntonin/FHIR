@@ -13,6 +13,7 @@ import { MatCardModule } from '@angular/material/card';
 import {CommonModule} from '@angular/common';
 import { Patient} from '../../../services/patient.model';
 import {Practitioner} from '../../../services/practitioner.model';
+import {Location} from '../../../services/location.model';
 
 @Component({
   selector: 'app-appointment-form',
@@ -42,10 +43,7 @@ export class AppointmentFormComponent implements OnInit {
 
   practitioners: any[] = [];
 
-  rooms = [
-    { id: '1', name: 'Salle 101' },
-    { id: '2', name: 'Salle 102' }
-  ];
+  locations: any[] = [];
 
   constructor(private fb: FormBuilder, private fhirService: FhirService) {}
 
@@ -71,6 +69,14 @@ export class AppointmentFormComponent implements OnInit {
           return new Patient(entry.resource);
         });
         console.log(this.patients);
+      }
+    });
+    this.fhirService.getLocations().subscribe({
+      next: (data) => {
+        this.locations = (data?.entry || []).map((entry: any) => {
+          return new Location(entry.resource);
+        });
+        console.log(this.locations);
       }
     });
   }
