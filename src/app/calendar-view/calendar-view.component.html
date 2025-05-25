@@ -1,20 +1,35 @@
-<div class='demo-app'>
+<header class="app-header">
+    <div class="container">
+        <img src="assets/rendez-vous.png" alt="Calendrier" class="logoCalendar" />
+        <h1>Secrétariat</h1>
+        <nav class="nav-links">
+            <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Accueil</a>
+            <a routerLink="/list" routerLinkActive="active">Rendez-vous</a>
+            <a routerLink="/calendar" routerlinkActive="active">Calendrier</a>
+            <a routerLink="/form" routerLinkActive="active">Nouveau</a>
+            <a routerLink="/about" routerLinkActive="active">A propos</a>
+        </nav>
+        <img src="assets/user.png" alt="Account" class="logoAccount" />
+    </div>
+</header>
 
-    <div class='demo-app-sidebar'>
-        <div class='demo-app-sidebar-section'>
+<div class='cal-app'>
+    <div class='cal-app-sidebar'>
+        <div class='cal-app-sidebar-section'>
+            <h2>Réglages</h2>
             <label>
                 <input type='checkbox' [checked]='calendarVisible()' (change)='handleCalendarToggle()' />
-                toggle whole calendar
+                Afficher le calendrier entier
             </label>
         </div>
-        <div class='demo-app-sidebar-section'>
+        <div class='cal-app-sidebar-section'>
             <label>
                 <input type='checkbox' [checked]='calendarOptions().weekends' (change)='handleWeekendsToggle()' />
-                toggle weekends
+                Afficher les Week-End
             </label>
         </div>
-        <div class='demo-app-sidebar-section'>
-            <h2>All Events ({{currentEvents().length}})</h2>
+        <div class='cal-app-sidebar-section'>
+            <h2>Tous les évènements ({{currentEvents().length}})</h2>
             <ul>
                 <li *ngFor='let event of currentEvents()'>
                     <b>{{event.startStr}}</b>
@@ -24,13 +39,21 @@
         </div>
     </div>
 
-    <div class='demo-app-main'>
-        <full-calendar *ngIf='calendarVisible()' [options]='calendarOptions()'>
+    <div class='cal-app-main'>
+        <full-calendar *ngIf='calendarVisible() && isBrowser' [options]='calendarOptions()'>
             <ng-template #eventContent let-arg>
                 <b>{{ arg.timeText }}</b>
                 <i>{{ arg.event.title }}</i>
             </ng-template>
+            <!--<ng-template #eventContent let-arg>
+                <div [innerHTML]="arg.event.title"></div>
+            </ng-template>-->
         </full-calendar>
     </div>
-
 </div>
+
+<footer class="app-footer">
+    <div class="container">
+        <p>&copy; 2025 Cabinet de Secrétariat. Tous droits réservés.</p>
+    </div>
+</footer>

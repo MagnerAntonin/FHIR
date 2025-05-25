@@ -1,6 +1,7 @@
-import { ChangeDetectorRef, Component, signal } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { FhirService } from '../services/fhir.service';
 
 import { FullCalendarModule } from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -9,7 +10,7 @@ import listPlugin from '@fullcalendar/interaction';
 import interactionPlugin from '@fullcalendar/interaction';
 import { CalendarOptions, DateSelectArg, EventApi, EventClickArg } from '@fullcalendar/core';
 
-import { INITIAL_EVENTS, createEventId } from './event-utils';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-calendar-view',
@@ -19,7 +20,13 @@ import { INITIAL_EVENTS, createEventId } from './event-utils';
   styleUrl: './calendar-view.component.scss',
 })
 
-export class CalendarViewComponent {
+export class CalendarViewComponent implements OnInit {
+
+  constructor(@Inject(PLATFORM_ID) private platformId: Object, private fhirService: FhirService, private changeDetector: ChangeDetectorRef, private router: Router) {
+    this.isBrowser = isPlatformBrowser(this.platformId);
+   }
+
+  isBrowser = false;
   calendarVisible = signal(true);
   calendarOptions = signal<CalendarOptions>({
     plugins: [
@@ -34,8 +41,8 @@ export class CalendarViewComponent {
       right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
     },
     initialView: 'dayGridMonth',
-    initialEvents: INITIAL_EVENTS, // alternatively, use the `events` setting to fetch from a feed
-    weekends: true,
+    events: [], // Add
+    weekends: false,
     editable: true,
     selectable: true,
     selectMirror: true,
@@ -51,9 +58,6 @@ export class CalendarViewComponent {
   });
   currentEvents = signal<EventApi[]>([]);
 
-  constructor(private changeDetector: ChangeDetectorRef) {
-  }
-
   handleCalendarToggle() {
     this.calendarVisible.update((bool) => !bool);
   }
@@ -66,14 +70,14 @@ export class CalendarViewComponent {
   }
 
   handleDateSelect(selectInfo: DateSelectArg) {
-    const title = prompt('Please enter a new title for your event');
+    const title = prompt('Saisissez un nouveau RDV');
     const calendarApi = selectInfo.view.calendar;
 
-    calendarApi.unselect(); // clear date selection
+    calendarApi.unselect();
 
     if (title) {
       calendarApi.addEvent({
-        id: createEventId(),
+        id: '78', //createEventId(),
         title,
         start: selectInfo.startStr,
         end: selectInfo.endStr,
@@ -83,13 +87,56 @@ export class CalendarViewComponent {
   }
 
   handleEventClick(clickInfo: EventClickArg) {
-    if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
+    if (confirm(`Êtes-vous sûr de vouloir supprimer ce Rendez-vous ? '${clickInfo.event.title}'`)) {
       clickInfo.event.remove();
     }
   }
 
   handleEvents(events: EventApi[]) {
     this.currentEvents.set(events);
-    this.changeDetector.detectChanges(); // workaround for pressionChangedAfterItHasBeenCheckedError
+    this.changeDetector.detectChanges();
+  }
+
+  // Add 
+  loadAppointmentsIntoCalendar() {
+    this.fhirService.getAppointments().subscribe({
+      next: async (data) => {
+        const entries = data?.entry || [];
+        const mappedAppointments = entries.map((entry: any) => entry.resource);
+
+        const enrichments = mappedAppointments.map(async (appt: any) => {
+          const participants: any[] = appt.participant || [];
+
+          const patientRef = participants.find((p: any) =>
+            p.actor.reference.startsWith('Patient/')
+          )?.actor.reference;
+
+          const [patient] = await Promise.all([
+            patientRef ? this.fhirService.getResourceByReference(patientRef).toPromise() : null,
+          ]);
+
+          return {
+            id: appt.id,
+            title: `${appt.description} ${patient ? '- ' + patient.name?.[0]?.given?.[0] + ' ' + patient.name?.[0]?.family : ''}`,
+            start: appt.start,
+            end: appt.end
+          };
+        });
+
+        const calendarEvents = await Promise.all(enrichments);
+
+        this.calendarOptions.update((options) => ({
+          ...options,
+          events: calendarEvents
+        }));
+      },
+      error: (err) => {
+        console.error('Erreur lors de la récupération des RDVs :', err);
+      }
+    });
+  }
+
+  ngOnInit(): void {
+    this.loadAppointmentsIntoCalendar();
   }
 }

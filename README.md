@@ -2,6 +2,16 @@
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.12.
 
+## Import Calendar Dependancies for development
+
+```bash
+npm install --save \
+  @fullcalendar/core \
+  @fullcalendar/angular \
+  @fullcalendar/daygrid \
+  @fullcalendar/interaction
+```
+
 ## Development server
 
 To start a local development server, run:
