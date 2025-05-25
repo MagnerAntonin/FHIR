@@ -16,6 +16,7 @@ import {CommonModule} from '@angular/common';
 import {Location} from '../../../services/location.model';
 import { Patient } from '../../../services/patient.model';
 import { Practitioner } from '../../../services/practitioner.model';
+import {Appointment} from '../../../services/appointment.model';
 import { RouterModule } from '@angular/router';
 
 
@@ -57,29 +58,24 @@ export class AppointmentFormComponent implements OnInit {
   ngOnInit(): void {
     this.appointmentForm = this.fb.group({
       patient: ['', Validators.required],
-      doctor: ['', Validators.required],
-      room: ['', Validators.required],
+      practitioner: ['', Validators.required],
+      location: ['', Validators.required],
+      reason: [''],
       startDate: ['', Validators.required],
       endDate: ['', Validators.required],
       startTime: ['', Validators.required],
       endTime: ['', Validators.required]
     });
 
-    // -------------
-    /*Add function to retrieve Appointments*/
     this.fhirService.getAppointments().subscribe({
       next: (data) => {
         this.appointments = (data?.entry || []).map((entry: any) => entry.resource);
-        //console.log(this.appointments);
         this.loading = false;
       },
       error(err) {
         console.error('Erreur lors de la récupération des RDVs :', err);
-        //this.loading = false;
       },
     });
-    // -------------
-
     this.fhirService.getPractitioners().subscribe({
       next: (data) => {
         this.practitioners = (data?.entry || []).map((entry: any) => {
@@ -88,7 +84,6 @@ export class AppointmentFormComponent implements OnInit {
         console.log(this.practitioners);
       }
     });
-
     this.fhirService.getPatients().subscribe({
       next: (data) => {
         this.patients = (data?.entry || []).map((entry: any) => {
@@ -113,55 +108,54 @@ export class AppointmentFormComponent implements OnInit {
       return;
     }
 
-    // -----------
-    // Add
     const formValue = this.appointmentForm.value;
 
-    const startDate = new Date(formValue.startDate);
-    const endDate = new Date(formValue.endDate);
-    const startTime = new Date(formValue.startTime);
-    const endTime = new Date(formValue.endTime);
+    const start = this.combineDateAndTime(formValue.startDate, formValue.startTime);
+    const end = this.combineDateAndTime(formValue.endDate, formValue.endTime);
 
-    // Création d’un DateTime combiné : date + heure
-    const start = new Date(
-      startDate.getFullYear(),
-      startDate.getMonth(),
-      startDate.getDate(),
-      startTime.getHours(),
-      startTime.getMinutes(),
-      startTime.getSeconds()
-    ).toISOString();
-
-    const end = new Date(
-      endDate.getFullYear(),
-      endDate.getMonth(),
-      endDate.getDate(),
-      endTime.getHours(),
-      endTime.getMinutes(),
-      endTime.getSeconds()
-    ).toISOString();
-
-    const patientId = formValue.patient;
-    const practitionerId = formValue.doctor;
-
-    if (this.hasConflicts(patientId, practitionerId, start, end)) {
+    if (this.hasConflicts(formValue.patient, formValue.doctor, start, end)) {
       alert("Conflit détecté : ce patient ou ce praticien a déjà un RDV à ce créneau.");
       return;
     }
 
-    console.log({
-      patient: patientId,
-      doctor: practitionerId,
-      room: formValue.room,
-      startDate: start,
-      endDate: end
-    });
-    // -----------
+    const appointment = new Appointment(
+      formValue.patient,
+      formValue.practitioner,
+      formValue.location,
+      start,
+      end,
+      formValue.reason
+    );
 
-    console.log(this.appointmentForm.value);
-    this.appointmentForm.reset(); // To reset the form
-
+    console.log('Appointment à envoyer :', appointment);
+    console.log(JSON.stringify(appointment, null, 2))
+    this.fhirService.createAppointment(appointment).subscribe({
+      next: (res) => {
+        console.log('Rendez-vous créé:', res);
+        alert('Rensez-vous créé avec succès !');
+        this.appointmentForm.reset();
+      },
+      error: (err) => {
+        console.error('Erreur lors de la création du rendez-vous :', err);
+        alert('Erreur lors de la création du rendez-vous.');
+      }
+    })
   }
+
+  combineDateAndTime(date: string | Date, time: string | Date): string {
+    const d = new Date(date);
+    const t = new Date(time);
+    const combined = new Date(
+      d.getFullYear(),
+      d.getMonth(),
+      d.getDate(),
+      t.getHours(),
+      t.getMinutes(),
+      t.getSeconds()
+    );
+    return combined.toISOString()
+  }
+
   protected readonly onsubmit = onsubmit;
 
   onCancel() {

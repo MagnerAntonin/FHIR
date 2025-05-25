@@ -28,16 +28,21 @@
 
       <mat-form-field appearance="outline" class="selector">
         <mat-label>Salle</mat-label>
-        <mat-select formControlName="room">
+        <mat-select formControlName="location">
           <mat-option *ngFor="let r of locations" [value]="r.id">{{ r.name }}</mat-option>
         </mat-select>
       </mat-form-field>
 
         <mat-form-field appearance="outline" class="selector">
           <mat-label>Médecin</mat-label>
-          <mat-select formControlName="doctor">
+          <mat-select formControlName="practitioner">
             <mat-option *ngFor="let d of practitioners" [value]="d.id">Dr. {{ d.fullName }}</mat-option>
           </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Motif du rendez-vous</mat-label>
+          <input matInput formControlName="reason" placeholder="Ex. : Prise de sang">
         </mat-form-field>
 
         <div class="form-row">

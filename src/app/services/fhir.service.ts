@@ -81,4 +81,9 @@ export class FhirService {
     );
     return match?.actor?.reference?.split('/')[1] || null;
   };
+
+  createAppointment(appointment: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/Appointment`, appointment);
+  }
+
 }
