@@ -24,7 +24,7 @@ export class CalendarViewComponent implements OnInit {
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object, private fhirService: FhirService, private changeDetector: ChangeDetectorRef, private router: Router) {
     this.isBrowser = isPlatformBrowser(this.platformId);
-   }
+  }
 
   isBrowser = false;
   calendarVisible = signal(true);
@@ -69,27 +69,27 @@ export class CalendarViewComponent implements OnInit {
     }));
   }
 
-  handleDateSelect(selectInfo: DateSelectArg) {
-    const title = prompt('Saisissez un nouveau RDV');
-    const calendarApi = selectInfo.view.calendar;
-
-    calendarApi.unselect();
-
-    if (title) {
-      calendarApi.addEvent({
-        id: '78', //createEventId(),
-        title,
-        start: selectInfo.startStr,
-        end: selectInfo.endStr,
-        allDay: selectInfo.allDay
-      });
-    }
+  handleDateSelect(selectInfo: DateSelectArg): void {
+    const start = selectInfo.startStr;
+    const end = selectInfo.endStr;
+    this.router.navigate(['/form'], {
+      queryParams: {
+        start,
+        end
+      }
+    });
   }
 
-  handleEventClick(clickInfo: EventClickArg) {
+  /*handleEventClick(clickInfo: EventClickArg) {
     if (confirm(`Êtes-vous sûr de vouloir supprimer ce Rendez-vous ? '${clickInfo.event.title}'`)) {
       clickInfo.event.remove();
     }
+  }*/
+
+  handleEventClick(info: any): void {
+    info.jsEvent.preventDefault(); // ✅ évite comportement par défaut
+    const eventId = info.event.id;
+    this.router.navigate(['/details', eventId]);
   }
 
   handleEvents(events: EventApi[]) {

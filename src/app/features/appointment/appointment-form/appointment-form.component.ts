@@ -12,12 +12,12 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 
-import {CommonModule} from '@angular/common';
-import {Location} from '../../../services/location.model';
+import { CommonModule } from '@angular/common';
+import { Location } from '../../../services/location.model';
 import { Patient } from '../../../services/patient.model';
 import { Practitioner } from '../../../services/practitioner.model';
-import {Appointment} from '../../../services/appointment.model';
-import { RouterModule } from '@angular/router';
+import { Appointment } from '../../../services/appointment.model';
+import { RouterModule, ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -53,7 +53,7 @@ export class AppointmentFormComponent implements OnInit {
   today: Date = new Date(); // Add
 
 
-  constructor(private fb: FormBuilder, private fhirService: FhirService) { }
+  constructor(private fb: FormBuilder, private fhirService: FhirService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.appointmentForm = this.fb.group({
@@ -66,6 +66,36 @@ export class AppointmentFormComponent implements OnInit {
       startTime: ['', Validators.required],
       endTime: ['', Validators.required]
     });
+
+    // -----------
+    // Add
+    this.route.queryParams.subscribe(params => {
+      const start = params['start'];
+      const end = params['end'];
+
+      if (start && end) {
+        const startDate = new Date(start);
+        const endDate = new Date(end);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        if (startDate >= today) {
+          const formattedStartDate = startDate.toISOString().split('T')[0]; // YYYY-MM-DD
+          const formattedEndDate = startDate.toISOString().split('T')[0];
+          const formattedStartTime = startDate.toTimeString().slice(0, 5); // HH:mm
+          const formattedEndTime = endDate.toTimeString().slice(0, 5);
+
+          this.appointmentForm.patchValue({
+            startDate: formattedStartDate,
+            endDate: formattedEndDate,
+            startTime: formattedStartTime,
+            endTime: formattedEndTime
+          });
+        }
+      }
+    });
+
+    // -----------
 
     this.fhirService.getAppointments().subscribe({
       next: (data) => {

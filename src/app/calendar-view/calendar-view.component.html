@@ -42,8 +42,8 @@
     <div class='cal-app-main'>
         <full-calendar *ngIf='calendarVisible() && isBrowser' [options]='calendarOptions()'>
             <ng-template #eventContent let-arg>
-                <b>{{ arg.timeText }}</b>
-                <i>{{ arg.event.title }}</i>
+                <b>{{ arg.timeText }} </b>
+                <i>{{ arg.event.title }} </i>
             </ng-template>
             <!--<ng-template #eventContent let-arg>
                 <div [innerHTML]="arg.event.title"></div>
