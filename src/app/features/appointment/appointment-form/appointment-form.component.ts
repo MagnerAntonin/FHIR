@@ -113,7 +113,7 @@ export class AppointmentFormComponent implements OnInit {
     const start = this.combineDateAndTime(formValue.startDate, formValue.startTime);
     const end = this.combineDateAndTime(formValue.endDate, formValue.endTime);
 
-    if (this.hasConflicts(formValue.patient, formValue.doctor, start, end)) {
+    if (this.hasConflicts(formValue.patient, formValue.practitioner, start, end)) {
       alert("Conflit détecté : ce patient ou ce praticien a déjà un RDV à ce créneau.");
       return;
     }

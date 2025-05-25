@@ -4,10 +4,13 @@ export class Appointment {
   start: string;
   end: string;
   participant: any[];
-  reasonCode?: any[];
+  description?: string;
 
   constructor(patientId: string, practitionerId: string, locationId: string, start: string, end: string, reason: string) {
     this.status = 'booked';
+    if (reason) {
+      this.description = reason;
+    }
     this.start = start;
     this.end = end;
 
@@ -25,13 +28,5 @@ export class Appointment {
         status: 'accepted',
       },
     ];
-
-    if (reason) {
-      this.reasonCode = [
-        {
-          text: reason,
-        },
-      ];
-    }
   }
 }
