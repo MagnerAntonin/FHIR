@@ -80,12 +80,6 @@ export class CalendarViewComponent implements OnInit {
     });
   }
 
-  /*handleEventClick(clickInfo: EventClickArg) {
-    if (confirm(`Êtes-vous sûr de vouloir supprimer ce Rendez-vous ? '${clickInfo.event.title}'`)) {
-      clickInfo.event.remove();
-    }
-  }*/
-
   handleEventClick(info: any): void {
     info.jsEvent.preventDefault(); // ✅ évite comportement par défaut
     const eventId = info.event.id;
