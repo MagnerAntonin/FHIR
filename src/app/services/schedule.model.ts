@@ -4,13 +4,7 @@ export class Schedule {
     planningHorizon: { start: string; end: string };
     comment?: string;
 
-    constructor(
-        practitionerId: string,
-        locationId: string,
-        start: string,
-        end: string,
-        comment?: string
-    ) {
+    constructor(practitionerId: string, locationId: string, start: string, end: string, comment?: string) {
         this.actor = [
             { reference: `Practitioner/${practitionerId}` },
             { reference: `Location/${locationId}` },

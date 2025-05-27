@@ -5,12 +5,7 @@ export class Slot {
     start: string;
     end: string;
 
-    constructor(
-        scheduleId: string,
-        start: string,
-        end: string,
-        status: 'busy' | 'free' | 'busy-unavailable' | 'busy-tentative' = 'free'
-    ) {
+    constructor(scheduleId: string, start: string, end: string, status: 'busy' | 'free' | 'busy-unavailable' | 'busy-tentative' = 'free') {
         this.schedule = { reference: `Schedule/${scheduleId}` };
         this.status = status;
         this.start = start;
