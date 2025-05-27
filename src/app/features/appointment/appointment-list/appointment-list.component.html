@@ -51,6 +51,11 @@
         <div class="appt-cell description" *ngIf="appt.description">
           <strong>📌</strong><em>{{ appt.description }}</em>
         </div>
+        <div class="appt-cell delete">
+          <button (click)="deleteAppointment(appt, $event)" class="delete-btn" title="Supprimer">
+            🗑️
+          </button>
+        </div>
       </div>
     </div>
 

@@ -105,4 +105,21 @@ export class AppointmentListComponent implements OnInit {
   showDetails(appt: any) {
     this.router.navigate(['/details', appt.id]);
   }
+
+  deleteAppointment(appt: any, event: MouseEvent) {
+    event.stopPropagation(); // Empêche l'ouverture des détails
+
+    if (confirm('Supprimer ce rendez-vous ?')) {
+      this.fhirService.deleteAppointment(appt.id).subscribe({
+        next: () => {
+          // Retirer le RDV localement
+          this.appointments = this.appointments.filter(a => a.id !== appt.id);
+        },
+        error: (err) => {
+          console.error('Erreur suppression', err);
+          alert('Une erreur est survenue lors de la suppression du rendez-vous.');
+        }
+      });
+    }
+  }
 }

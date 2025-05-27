@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -24,6 +24,24 @@ export class FhirService {
 
   getAppointmentById(id: string): Observable<any> {
     return this.http.get(`${this.apiUrl}/Appointment/${id}`);
+  }
+
+  getAppointmentsCountByPractitioner(practitionerId: string): Observable<number> {
+    return this.getAppointments().pipe(
+      map((bundle: any) => bundle?.entry || []),
+      map((entries: any[]) =>
+        entries.filter((entry: any) =>
+          entry.resource?.participant?.some((p: any) =>
+            p.actor?.reference === `Practitioner/${practitionerId}`
+          )
+        )
+      ),
+      map(filteredAppointments => filteredAppointments.length)
+    );
+  }
+
+  deleteAppointment(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/Appointment/${id}`);
   }
 
   getPatients(params?: any): Observable<any> {

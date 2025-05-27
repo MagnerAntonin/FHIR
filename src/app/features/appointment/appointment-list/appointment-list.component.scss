@@ -120,6 +120,18 @@
       font-size: 20px;
     }
 
+    .delete-btn {
+      background: none;
+      border: none;
+      color: red;
+      font-size: 1.2em;
+      cursor: pointer;
+    }
+
+    .delete-btn:hover {
+      text-shadow: 0 0 2px red;
+    }
+
     .appt-cell strong {
       font-size: 0.95rem;
       margin-right: 6px;
