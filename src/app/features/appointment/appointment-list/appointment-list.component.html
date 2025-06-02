@@ -28,6 +28,12 @@
       </select>
     </div>
 
+    <div class="search-controls">
+      <label for="search">Rechercher un <b>patient</b>:</label>
+      <input id="search" type="text" [(ngModel)]="searchTerm" (input)="filterAppointments()"
+        placeholder="Nom ou prénom...">
+    </div>
+
     <div *ngIf="loading" class="loading">Chargement...</div>
     <div *ngIf="!loading && appointments.length === 0" class="empty">Aucun rendez-vous à afficher.</div>
 

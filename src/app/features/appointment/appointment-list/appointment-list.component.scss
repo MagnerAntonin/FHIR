@@ -28,6 +28,31 @@
     font-size: 16px;
   }
 
+  .search-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+    font-size: 20px;
+  }
+
+  .search-controls input[type="text"] {
+    padding: 8px 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.3s ease;
+    flex: 1;
+    max-width: 300px;
+  }
+
+  .search-controls input[type="text"]:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 4px rgba(0, 123, 255, 0.3);
+  }
+
 }
 
 .app-header {

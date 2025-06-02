@@ -31,9 +31,12 @@ export class AppointmentListComponent implements OnInit {
     });
   }*/
 
+  searchTerm: string = '';
+  allAppointments: any[] = [];
+
   ngOnInit(): void {
     this.fhirService.getAppointments().subscribe({
-      next: (data) => {
+      next: async (data) => {
         const entries = data?.entry || [];
 
         const mappedAppointments = entries.map((entry: any) => entry.resource);
@@ -66,11 +69,16 @@ export class AppointmentListComponent implements OnInit {
           };
         });
 
-        Promise.all(enrichments).then((results) => {
+        const results = await Promise.all(enrichments);
+        this.allAppointments = results; // garde la liste complète
+        this.filterAppointments(); // applique filtre + tri
+        this.loading = false;
+
+        /*Promise.all(enrichments).then((results) => {
           this.appointments = results;
           this.sortAppointments(); // Init sort
           this.loading = false;
-        });
+        });*/
       },
       error: (err) => {
         console.error('Erreur lors de la récupération des RDVs :', err);
@@ -101,6 +109,18 @@ export class AppointmentListComponent implements OnInit {
       }
     });
   }
+
+  filterAppointments() {
+    const term = this.searchTerm.trim().toLowerCase();
+
+    this.appointments = this.allAppointments.filter(appt => {
+      const patientName = appt.patient?.name?.toLowerCase() || '';
+      return patientName.includes(term);
+    });
+
+    this.sortAppointments(); // trie après filtrage
+  }
+
 
   showDetails(appt: any) {
     this.router.navigate(['/details', appt.id]);
