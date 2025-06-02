@@ -26,20 +26,6 @@ export class FhirService {
     return this.http.get(`${this.apiUrl}/Appointment/${id}`);
   }
 
-  getAppointmentsCountByPractitioner(practitionerId: string): Observable<number> {
-    return this.getAppointments().pipe(
-      map((bundle: any) => bundle?.entry || []),
-      map((entries: any[]) =>
-        entries.filter((entry: any) =>
-          entry.resource?.participant?.some((p: any) =>
-            p.actor?.reference === `Practitioner/${practitionerId}`
-          )
-        )
-      ),
-      map(filteredAppointments => filteredAppointments.length)
-    );
-  }
-
   deleteAppointment(id: string): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/Appointment/${id}`);
   }
