@@ -16,6 +16,7 @@
 <main class="appointments-container">
   <div class="container">
     <h1>Liste des Rendez-vous</h1>
+
     <div class="sort-controls">
       <label for="sort">Trier par :</label>
       <select id="sort" [(ngModel)]="sortKey" (change)="sortAppointments()">
@@ -32,6 +33,14 @@
       <label for="search">Rechercher un <b>patient</b>:</label>
       <input id="search" type="text" [(ngModel)]="searchTerm" (input)="filterAppointments()"
         placeholder="Nom ou prénom...">
+
+      <label for="filterPeriod">Filtrer par période :</label>
+      <select [(ngModel)]="periodFilter" (change)="filterByPeriod()" id="filterPeriod" class="period-select">
+        <option disabled hidden value="">Filtrer par période</option>
+        <option value="Toute">Tous les RDV</option>
+        <option value="A Venir">RDV à venir</option>
+        <option value="Passé">RDV passés</option>
+      </select>
     </div>
 
     <div *ngIf="loading" class="loading">Chargement...</div>

@@ -53,6 +53,27 @@
     box-shadow: 0 0 4px rgba(0, 123, 255, 0.3);
   }
 
+  .period-select {
+    padding: 8px 12px;
+    font-size: 16px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    min-width: 220px;
+  }
+
+  .period-select {
+    background-color: #f9f9f9;
+    cursor: pointer;
+    appearance: none;
+  }
+
+  .period-select:focus,
+  .search-input:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.2);
+  }
+
 }
 
 .app-header {

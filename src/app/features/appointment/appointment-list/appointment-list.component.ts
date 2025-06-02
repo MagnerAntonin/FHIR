@@ -33,6 +33,7 @@ export class AppointmentListComponent implements OnInit {
 
   searchTerm: string = '';
   allAppointments: any[] = [];
+  periodFilter: 'Toute' | 'A Venir' | 'Passé' = 'Toute';
 
   ngOnInit(): void {
     this.fhirService.getAppointments().subscribe({
@@ -70,15 +71,12 @@ export class AppointmentListComponent implements OnInit {
         });
 
         const results = await Promise.all(enrichments);
-        this.allAppointments = results; // garde la liste complète
-        this.filterAppointments(); // applique filtre + tri
+        this.allAppointments = results; // Garde la liste complète
+        this.filterAppointments(); // Applique filtre + tri
         this.loading = false;
 
-        /*Promise.all(enrichments).then((results) => {
-          this.appointments = results;
-          this.sortAppointments(); // Init sort
-          this.loading = false;
-        });*/
+        this.periodFilter = 'Toute';
+        this.filterByPeriod();
       },
       error: (err) => {
         console.error('Erreur lors de la récupération des RDVs :', err);
@@ -113,12 +111,33 @@ export class AppointmentListComponent implements OnInit {
   filterAppointments() {
     const term = this.searchTerm.trim().toLowerCase();
 
-    this.appointments = this.allAppointments.filter(appt => {
+    this.appointments = this.filteredAppointments.filter(appt => {
       const patientName = appt.patient?.name?.toLowerCase() || '';
       return patientName.includes(term);
     });
 
     this.sortAppointments(); // trie après filtrage
+  }
+
+  filteredAppointments: any[] = [];
+  filterByPeriod() {
+    const now = new Date();
+
+    this.filteredAppointments = this.allAppointments.filter(appt => {
+      const start = new Date(appt.start);
+
+      switch (this.periodFilter) {
+        case 'A Venir':
+          return start >= now;
+        case 'Passé':
+          return start < now;
+        case 'Toute':
+        default:
+          return true;
+      }
+    });
+
+    this.filterAppointments();
   }
 
 
