@@ -116,7 +116,7 @@ export class AppointmentListComponent implements OnInit {
       return patientName.includes(term);
     });
 
-    this.sortAppointments(); // trie après filtrage
+    this.sortAppointments();
   }
 
   filteredAppointments: any[] = [];
