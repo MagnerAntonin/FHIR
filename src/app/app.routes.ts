@@ -5,7 +5,7 @@ import { AppointmentDetailsComponent } from './features/appointment/appointment-
 import { AppointmentFormComponent } from './features/appointment/appointment-form/appointment-form.component';
 import { AppointmentListComponent } from './features/appointment/appointment-list/appointment-list.component';
 import { AboutComponent } from './about/about.component';
-import { CalendarViewComponent } from './calendar-view/calendar-view.component';
+import { CalendarViewComponent} from '../app/features/calendar-view/calendar-view.component';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent, title: 'Accueil' },
