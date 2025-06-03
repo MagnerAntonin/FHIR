@@ -157,6 +157,11 @@ export class AppointmentFormComponent implements OnInit {
 
     const start = this.combineDateAndTime(formValue.startDate, formValue.startTime);
     const end = this.combineDateAndTime(formValue.endDate, formValue.endTime);
+    
+    if (new Date(end) < new Date(start)) {
+      alert("La date ou l'heure de fin ne peut pas être antérieure à la date ou l'heure de début.");
+      return;
+    }
 
     if (this.hasConflicts(formValue.patient, formValue.practitioner, start, end)) {
       alert("Conflit détecté : ce patient ou ce praticien a déjà un RDV à ce créneau.");
