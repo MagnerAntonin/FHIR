@@ -11,6 +11,8 @@ import { MatTimepickerModule } from '@angular/material/timepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatSnackBar} from '@angular/material/snack-bar';
+
 
 import { CommonModule } from '@angular/common';
 import { Location } from '../../../services/location.model';
@@ -37,7 +39,8 @@ import { RouterModule, ActivatedRoute } from '@angular/router';
     MatNativeDateModule,
     MatButtonModule,
     MatCardModule,
-    RouterModule
+    RouterModule,
+
   ],
   templateUrl: './appointment-form.component.html',
   styleUrl: './appointment-form.component.scss'
@@ -53,7 +56,7 @@ export class AppointmentFormComponent implements OnInit {
   today: Date = new Date(); // Add
 
 
-  constructor(private fb: FormBuilder, private fhirService: FhirService, private route: ActivatedRoute) { }
+  constructor(private fb: FormBuilder, private fhirService: FhirService, private route: ActivatedRoute, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.appointmentForm = this.fb.group({
@@ -67,8 +70,6 @@ export class AppointmentFormComponent implements OnInit {
       endTime: ['', Validators.required]
     });
 
-    // -----------
-    // Add
     this.route.queryParams.subscribe(params => {
       const start = params['start'];
       const end = params['end'];
@@ -94,8 +95,6 @@ export class AppointmentFormComponent implements OnInit {
         }
       }
     });
-
-    // -----------
 
     this.fhirService.getAppointments().subscribe({
       next: (data) => {
@@ -157,9 +156,18 @@ export class AppointmentFormComponent implements OnInit {
 
     const start = this.combineDateAndTime(formValue.startDate, formValue.startTime);
     const end = this.combineDateAndTime(formValue.endDate, formValue.endTime);
-    
+
     if (new Date(end) < new Date(start)) {
-      alert("La date ou l'heure de fin ne peut pas être antérieure à la date ou l'heure de début.");
+      this.snackBar.open(
+        'La date ou l\'heure de fin ne peut pas être antérieure au début.',
+        'Fermer',
+        {
+          duration: 4000,
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: ['snackbar-error'],
+        }
+      );
       return;
     }
 
